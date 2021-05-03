@@ -9,7 +9,8 @@
 (def config-repo-path "/akvo-flow-server-config")
 
 (def repo-directory-file-list
-  (filter #(re-find #"akvoflow" (.getName %))
+  (filter #(and (.isDirectory %)
+                (.exists (io/file (.getPath %) "appengine-web.xml")))
           (.listFiles (io/file config-repo-path))))
 
 (defn build-ds-spec [config]
